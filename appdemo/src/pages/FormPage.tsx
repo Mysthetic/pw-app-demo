@@ -1,17 +1,29 @@
-import { TextField, Button, Typography, Box } from '@mui/material';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../services/api';
+import { TextField, Button, Typography, Box } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 
 export default function FormPage() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    await api.post('/user', { name });
-    alert('Submitted!');
-    navigate('/data');
-  };
+  if (!name.trim()) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  try {
+    await api.post("/user", { name });
+    console.log('Name submit successfuly!')
+    alert("Submitted!");
+    navigate("/data");
+  } catch (error) {
+    console.error("Failed to submit:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
+
 
   return (
     <Box
@@ -31,7 +43,7 @@ export default function FormPage() {
         borderRadius={2}
         bgcolor="white"
       >
-        <Typography variant="h5" color='black' gutterBottom>
+        <Typography variant="h5" color="black" gutterBottom>
           Enter your name
         </Typography>
         <TextField

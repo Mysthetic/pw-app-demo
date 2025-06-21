@@ -10,7 +10,7 @@ interface Props {
 export default function MyModal({ open, user, onClose }: Props) {
   return (
     <Modal open={open} onClose={onClose}>
-      <Box sx={{ p: 4, bgcolor: 'blue', width: 300, mx: 'auto', mt: '10%' }}>
+      <Box sx={{ p: 4, bgcolor: 'purple', width: 300, mx: 'auto', mt: '5%' }}>
         <Typography variant="h6">User Detail</Typography>
         {user && (
           <>
