@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import api from "../services/api";
 import MyCard from "../components/Card";
 import DropDown from "../components/DropDown";
@@ -15,42 +15,70 @@ export default function DataDisplay() {
   const [modalUser, setModalUser] = useState<User | null>(null);
 
   useEffect(() => {
-    api.get('/user')
-      .then(res => setUsers(res.data))
-      .catch(err => console.error('Failed to load users', err));
+    api
+      .get("/user")
+      .then((res) => setUsers(res.data))
+      .catch((err) => console.error("Failed to load users", err));
   }, []);
 
   const handleCheckboxChange = (id: number) => {
     setCheckedIds((prev) =>
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
+    console.log('checked')
   };
 
   const handleDetails = (user: User) => {
     setModalUser(user);
     setOpen(true);
+    console.log('Open Modal')
   };
 
-  return (
-    <div style={{ padding: "2rem" }}>
-      <Typography variant="h4" gutterBottom>
-        My Data Display
-      </Typography>
+  const filteredUsers =
+    selectedUserId === ""
+      ? users
+      : users.filter((u) => u.id === selectedUserId);
 
-      <MyCard users={users} />
-      <DropDown
-        users={users}
-        selectedUserId={selectedUserId}
-        onChange={setSelectedUserId}
-      />
-      <Typography variant="h4" gutterBottom>Users</Typography>
-      <MyTable
-        users={users}
-        checkedIds={checkedIds}
-        onCheck={handleCheckboxChange}
-        onDetails={handleDetails}
-      />
-      <MyModal open={open} user={modalUser} onClose={() => setOpen(false)} />
-    </div>
+  return (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      marginTop="2vh"
+      marginBottom="2vh"
+    >
+      <Container
+        maxWidth="lg"
+        sx={{ bgcolor: "white", borderRadius: 2, boxShadow: 3, paddingY: 4 }}
+      >
+        <Typography variant="h4" color="black" gutterBottom align="center">
+          My Data Display
+        </Typography>
+
+        <MyCard users={users} />
+
+        <Box my={3}>
+          <DropDown
+            users={users}
+            selectedUserId={selectedUserId}
+            onChange={(id) => setSelectedUserId(id)}
+          />
+        </Box>
+
+        <Typography variant="h5" color="black" gutterBottom align="center">
+          Users
+        </Typography>
+
+        <MyTable
+          users={filteredUsers}
+          checkedIds={checkedIds}
+          onCheck={handleCheckboxChange}
+          onDetails={handleDetails}
+        />
+
+        <MyModal open={open} user={modalUser} onClose={() => setOpen(false)} />
+      </Container>
+    </Box>
   );
 }
