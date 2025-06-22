@@ -14,7 +14,7 @@ export default function HomePage() {
       alignItems="center"
       height="90vh"
     >
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" mb="2rem" gutterBottom>
         Welcome to My App Demo!
       </Typography>
       <Button variant="contained" onClick={() => navigate("/form")}>

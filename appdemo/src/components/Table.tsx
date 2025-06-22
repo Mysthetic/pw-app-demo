@@ -5,9 +5,10 @@ import {
   TableRow,
   TableCell,
   Checkbox,
-  Button
-} from '@mui/material';
-import type { User } from '../types/User';
+  Button,
+  Box,
+} from "@mui/material";
+import type { User } from "../types/User";
 
 interface Props {
   users: User[];
@@ -16,32 +17,39 @@ interface Props {
   onDetails: (user: User) => void;
 }
 
-export default function MyTable({ users, checkedIds, onCheck, onDetails }: Props) {
+export default function MyTable({
+  users,
+  checkedIds,
+  onCheck,
+  onDetails,
+}: Props) {
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Check</TableCell>
-          <TableCell>Name</TableCell>
-          <TableCell>Action</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {users.map((user) => (
-          <TableRow key={user.id}>
-            <TableCell>
-              <Checkbox
-                checked={checkedIds.includes(user.id)}
-                onChange={() => onCheck(user.id)}
-              />
-            </TableCell>
-            <TableCell>{user.name}</TableCell>
-            <TableCell>
-              <Button onClick={() => onDetails(user)}>Details</Button>
-            </TableCell>
+    <Box sx={{ maxHeight: 300, overflowY: "auto" }}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Check</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Action</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHead>
+        <TableBody>
+          {users.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell>
+                <Checkbox
+                  checked={checkedIds.includes(user.id)}
+                  onChange={() => onCheck(user.id)}
+                />
+              </TableCell>
+              <TableCell>{user.name}</TableCell>
+              <TableCell>
+                <Button onClick={() => onDetails(user)}>Details</Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Box>
   );
 }

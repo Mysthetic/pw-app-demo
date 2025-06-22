@@ -45,12 +45,10 @@ export default function DataDisplay() {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      marginTop="2vh"
-      marginBottom="2vh"
     >
       <Container
         maxWidth="lg"
-        sx={{ bgcolor: "white", borderRadius: 2, boxShadow: 3, paddingY: 4 }}
+        sx={{ bgcolor: "white", borderRadius: 2, boxShadow: 3, paddingY: 4, width: 400 }}
       >
         <Typography variant="h4" color="black" gutterBottom align="center">
           My Data Display
@@ -58,7 +56,7 @@ export default function DataDisplay() {
 
         <MyCard users={users} />
 
-        <Box my={3}>
+        <Box my={2}>
           <DropDown
             users={users}
             selectedUserId={selectedUserId}
