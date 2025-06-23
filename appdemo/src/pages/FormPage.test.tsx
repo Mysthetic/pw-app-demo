@@ -2,13 +2,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import FormPage from './FormPage';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-//Mock useNavigate จาก react-router-dom
 vi.mock('react-router-dom', () => ({
   useNavigate: () => vi.fn(),
 }));
 
 describe('FormPage', () => {
-  //Mock alert ทุกรอบก่อนทดสอบ
   beforeEach(() => {
     vi.spyOn(window, 'alert').mockImplementation(() => {});
   });
@@ -28,7 +26,6 @@ describe('FormPage', () => {
     fireEvent.change(input, { target: { value: 'John' } });
     fireEvent.click(button);
 
-    //ตรวจสอบว่า alert ถูกเรียก
     expect(window.alert).not.toHaveBeenCalledWith('Please enter your name.');
   });
 });

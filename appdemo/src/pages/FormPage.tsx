@@ -8,22 +8,21 @@ export default function FormPage() {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-  if (!name.trim()) {
-    alert("Please enter your name.");
-    return;
-  }
+    if (!name.trim()) {
+      alert("Please enter your name.");
+      return;
+    }
 
-  try {
-    await api.post("/user", { name });
-    console.log('Name submit successfuly!')
-    alert("Submitted!");
-    navigate("/data");
-  } catch (error) {
-    console.error("Failed to submit:", error);
-    alert("Something went wrong. Please try again.");
-  }
-};
-
+    try {
+      await api.post("/user", { name });
+      console.log("Name submit successfuly!");
+      alert("Submitted!");
+      navigate("/data");
+    } catch (error) {
+      console.error("Failed to submit:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <Box
@@ -53,7 +52,11 @@ export default function FormPage() {
           fullWidth
           sx={{ my: 2 }}
         />
-        <Button variant="contained" fullWidth onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          fullWidth
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
       </Box>
